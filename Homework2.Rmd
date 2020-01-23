@@ -1,0 +1,172 @@
+---
+title: "Homework.V2"
+author: "Walsh"
+date: "20/01/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Scenerio 1.
+
+#a) 
+#Null Hypotheses:The amount of shrimp caught will have no change between 2009-2010
+#ALternate Hypotheses: The amount of shrimp caught is significantly diffrent from 2009-2010
+
+```{r}
+#b)
+Shrimp=read.csv(file.choose())
+Shrimp
+
+```
+```{r}
+hist(Shrimp$X2009.catch..tonnes.)
+hist(Shrimp$X2010.catch..tonnes.)
+```
+#C)
+#For this scenerio we would want to use a paired two-samle t-test that would compare the mean between both years of shrimp yields.
+
+```{r}
+#d)
+post=(Shrimp$X2010.catch..tonnes.)
+pre=(Shrimp$X2009.catch..tonnes.)
+t.test(post, pre, paired=TRUE)
+
+qt(0.95,(14-1))
+```
+
+#e)
+# The critical value is +-1.770933, our observed value is is -6.3808
+#f)
+# The observed value is in the critical region, additionally the pvalue<0.05, we would therfore reject the null hypothesis and there is a significant change between shrimp harvest from 2009 to 2010.
+
+## Scenerio 2.
+
+#a) 
+#Null Hypotheses:The total phosphorous level is 15ug/L or less
+#ALternate Hypotheses: The amount  of phosphorous is more than 15ug/L
+
+```{r}
+#b)
+Total_Phosphorous=c(18.4, 12.9, 15.3, 18.3, 15.6, 23.3, 16.5, 12.3, 24.6, 16.2)
+hist(Total_Phosphorous)
+
+```
+#C)
+#For this scenerio we would want to use a one-sample t-test that would compare the mean between the water sample of phosphorous.
+
+```{r}
+#d)
+
+t.test(Total_Phosphorous, mu=15)
+
+qt(0.95,(10-1))
+```
+
+#e)
+# The critical value is +1.833113, our observed value is is 1.8462
+#f)
+# The observed value is in the critical region, we would therfore reject the null hypothesis and the level of phosphorous is over the maximum guidline of 15ug/l.
+
+
+## Scenerio 3.
+
+#a) 
+#Null Hypotheses:There is no diffrence in growth rate of fish.
+#ALternate Hypotheses: There is a diffrence in the growth rate of fish.
+
+```{r}
+#b)
+Fish=read.csv(file.choose())
+Fish
+
+```
+```{r}
+hist(Fish$Carnivorous)
+hist(Fish$Vegetarian)
+```
+#C)
+#For this scenerio we would want to use a one-sample t-test that would compare the mean between both years of shrimp yields.
+
+```{r}
+#d)
+post=(Fish$Carnivorous)
+pre=(Fish$Vegetarian)
+t.test(post, pre, paired=TRUE)
+
+qt(0.95,(15-1))
+```
+
+#e)
+# The critical value is +-1.76131, our observed value is is 15.162
+#f)
+# The observed value is in the critical region, additionally the pvalue<0.05, we would therfore reject the null hypothesis and the vegeterian diet differs from the carnivorous diet in terms of growth rate.
+
+## Scenerio 4.
+
+#a) 
+#Null Hypotheses: PCB poisoning is equall between trophic levels.
+#ALternate Hypotheses: PCB poisoning is not equall between trophic levels.
+
+```{r}
+#b)
+#Histogram is not relevant for this part, but I did it anyways as per the question.
+PCB=read.csv(file.choose())
+PCB
+
+```
+```{r}
+hist(PCB$No.effect)
+hist(PCB$No.reproduction)
+hist(PCB$Death)
+
+```
+#C)
+#For this scenerio we would want to use a chi-squared that would compare independance between categorical variables.
+
+```{r}
+#d)
+FirstTrophicLevel=c(133,	100,	17)
+TopPredator=c(4, 61, 35)
+pcb=data.frame('F'=FirstTrophicLevel, 'T'=TopPredator)
+
+chisq.test(pcb)
+
+qchisq(0.95,2)
+
+```
+
+#e)
+# The critical value is +-5.991465, our observed value is is 89.253
+#f)
+# The observed value is in the critical region, additionally the pvalue<0.05, we would therfore reject the null hypothesis and the pcb levels are unequal between the 1st trophic level and top predators.
+
+
+
+
+
+
+
+
+
